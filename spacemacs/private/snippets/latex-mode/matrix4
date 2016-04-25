@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: matrix4
+# key: mx4
+# --
+\left(
+\begin{array}{cccc}
+  $0  &  &  &  \\\\
+    &  &  &  \\\\
+    &  &  &  \\\\
+    &  &  &  
+\end{array}
+\right)

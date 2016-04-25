@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: boldmathcal
+# key: bmc 
+# --
+\boldsymbol{\mathcal{$1}}$0

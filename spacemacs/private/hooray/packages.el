@@ -150,7 +150,7 @@ Each entry is either:
 
 (defun hooray/post-init-yasnippet ()
   (setq yas-snippet-dirs
-        '("~/.emacs.d/snippets")
+        '("~/.emacs.d/private/snippets")
         )
   (yas-global-mode 1);; or M-x yas-reload-all if you've started YASnippet already.
   (setq yas-indent-line 'fixed)

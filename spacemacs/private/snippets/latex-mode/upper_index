@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: upper_index
+# key: ui
+# --
+`(setq this-command (insert "^"))(cdlatex-sub-superscript)`

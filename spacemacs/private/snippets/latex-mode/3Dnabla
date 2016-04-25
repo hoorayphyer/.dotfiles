@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: 3Dnabla
+# key: na3
+# --
+\vec{\nabla}$0

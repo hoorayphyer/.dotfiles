@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: left_right_parentheses
+# key: \lr
+# binding: direct-keybinding
+# --
+\left( $1 \right) $0

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: 1st_partial_derivative
+# key: pdd
+# --
+\frac{\partial $1}{\partial $2}$0

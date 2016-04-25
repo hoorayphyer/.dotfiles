@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: geqslant
+# key: geq
+# binding: direct-keybinding
+# --
+\geqslant

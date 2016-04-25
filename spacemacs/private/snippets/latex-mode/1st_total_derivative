@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: 1st_total_derivative
+# key: dd
+# --
+\frac{d $1}{d $2}$0

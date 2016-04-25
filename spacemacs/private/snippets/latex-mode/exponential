@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: exponential
+# key: ep
+# --
+\mathrm{e}^{$1}$0
