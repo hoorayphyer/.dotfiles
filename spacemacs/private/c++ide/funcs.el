@@ -1,0 +1,7 @@
+(defun last-gcc ()
+  (interactive)
+  (let ((current_buffer (buffer-name)))
+    (message current_buffer)
+    (shell-command (concat "g++ -std=c++11 " current_buffer " && ./a.out"))
+    )
+  )

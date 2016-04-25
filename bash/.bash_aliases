@@ -1,0 +1,6 @@
+alias visit='/usr/local/visit/bin/visit'
+alias python='python3.4'
+alias captrl='~/.startup-app'
+alias tnew='tmux new '
+alias tu='~/codes/tmuxup'
+alias xo='xdg-open'
