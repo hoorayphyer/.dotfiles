@@ -36,6 +36,7 @@
     company-irony
     company-irony-c-headers
     irony
+    flycheck
     )
   "The list of Lisp packages required by the c++ide layer.
 
@@ -104,5 +105,10 @@ Each entry is either:
     :init
     (add-to-list 'company-backends 'company-irony)))
 
+(defun c++ide/post-init-flycheck ()
+  (add-hook 'c++-mode-hook 'flycheck-mode)
+  (add-hook 'c++-mode-hook
+            (lambda () (setq flycheck-clang-language-standard "c++11")))
+  )
 
 ;;; packages.el ends here
