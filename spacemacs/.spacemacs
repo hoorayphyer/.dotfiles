@@ -39,7 +39,8 @@ values."
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
-     syntax-checking
+     (syntax-checking :variables
+                      syntax-checking-enable-by-default nil);; somehow enabling this by default causes the arrow in pdf-sync-forward-search to disappear
      ;; version-control
      hooray
      latex-custom
@@ -292,7 +293,8 @@ you should place you code here."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(cdlatex-math-symbol-prefix 59)
- '(electric-pair-mode nil)
+ '(electric-pair-mode t)
+ '(irony-additional-clang-options (quote ("-std=c++11")))
  '(paradox-github-token t)
  '(split-width-threshold 80))
 (custom-set-faces

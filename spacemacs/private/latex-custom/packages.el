@@ -118,6 +118,7 @@ Each entry is either:
     (setq TeX-auto-save t)
     (setq TeX-parse-self t)
     (setq TeX-show-compilation nil)
+    (define-key LaTeX-mode-map (kbd "<double-mouse-1>") 'pdf-sync-forward-search)
     ;; (setq-default TeX-master nil)
     ;; (add-hook 'reftex-load-hook '(lambda ()
     ;;                                (define-key reftex-mode-map "k" 'reftex-toc-previous)
@@ -214,12 +215,6 @@ AUTOLABEL
 
 (defun latex-custom/init-pdf-tools ()
   (pdf-tools-install)
-  ;; (use-package pdf-view
-  ;;   :init
-  ;;   (add-hook 'pdf-view-mode-hook 'evil-emacs-state)
-  ;;   :config
-  ;;   ;; (use-local-map pdf-view-mode-map)
-  ;;   )
   )
 
 ;;; packages.el ends here
