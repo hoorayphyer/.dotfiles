@@ -36,8 +36,6 @@
     company
     helm
     yasnippet
-    python-mode
-    company-jedi
  ;;   dired
     )
   "The list of Lisp packages required by the hooray layer.
@@ -165,32 +163,6 @@ Each entry is either:
   (define-key yas-keymap (kbd "C-g") 'abort-company-or-yas)
   ;; ;; end of conflict solver
   )
-
-(defun hooray/init-python-mode ()
-  ;; The package is "python" but the mode is "python-mode":
- (use-package python-mode
-   :commands python-mode
-   :mode ("\\.py\\'" . python-mode)
-   :interpreter ("python" . python-mode)
-   )
- )
-
-;; (defun hooray/init-company-jedi ()
-;;   ;; enable company-jedi
-;;   ;;Note: need to install pip and virtualenv, need jedi. Then call jedi:install-server.
-;;   ;;Enable jedi to auto-complete for python mode
-;;   (use-package company-jedi
-;;    ;; :if (configuration-layer/package-usedp company) ;; only load jedi when company is loaded
-;;     :commands (company-jedi jedi:setup)
-;;     :init
-;;     (defun hooray/add-jedi-to-company ()
-;;       (add-to-list 'company-backends 'company-jedi))
-;;     (add-hook 'python-mode-hook 'hooray/add-jedi-to-company)
-;;     (add-hook 'python-mode-hook 'jedi:setup)
-;;     :config
-;;     (setq jedi:complete-on-dot t) ; optional
-;;     )
-;;   )
 
 (defun hooray/post-init-org ()
   ;;Enable BaBel ob_babel_functions for some languages

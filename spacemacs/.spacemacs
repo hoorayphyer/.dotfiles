@@ -32,6 +32,7 @@ values."
      (latex :variables
             latex-enable-auto-fill t
             latex-enable-folding t)
+     python
      ;; (c-c++ :variables
      ;;        c-c++-default-mode-for-headers 'c++-mode
      ;;        c-c++-enable-clang-support t)

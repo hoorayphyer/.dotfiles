@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : eval_vert
+#key : ev 
+#contributor : Rui Hu
+# --
+\left. $1 \right\vert_{$2} $0

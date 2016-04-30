@@ -35,6 +35,7 @@
     company
     company-irony
     company-irony-c-headers
+    cmake-mode
     irony
     flycheck
     )
@@ -111,4 +112,12 @@ Each entry is either:
             (lambda () (setq flycheck-clang-language-standard "c++11")))
   )
 
+;;; copied from spacemacs c-c++ layers
+(defun c++ide/init-cmake-mode ()
+  (use-package cmake-mode
+    :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))
+    :init (push 'company-cmake company-backends-cmake-mode)))
+
+(defun c++ide/post-init-company ()
+  (spacemacs|add-company-hook cmake-mode))
 ;;; packages.el ends here

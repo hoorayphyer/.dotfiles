@@ -209,7 +209,10 @@ AUTOLABEL
          ( ?F  ("\\Phi"                 ))
          ( ?n  ("\\nu"             "\\nabla"                "\\ln"))
          ))
-     '(cdlatex-math-modify-alist nil)
+     '(cdlatex-math-modify-alist
+       '(
+         ( ?b    "\\boldsymbol"            "\\textbf" t   nil nil )
+         ))
      )
     ))
 

@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: column_vector3
+# key: cv3 
+# --
+\left(
+\begin{array}{c}
+  $0   \\\\ \\\\ 
+\end{array}
+\right)
