@@ -112,18 +112,18 @@ Each entry is either:
     ;; the latexmk option -pvc makes latexmk automatically update pdf whenever changes are made to source file.
     (add-hook 'LaTeX-mode-hook (lambda () (add-to-list 'TeX-command-list '("MkLaTeX" "latexmk -pdf -pdflatex='pdflatex -file-line-error -synctex=1' -pvc %t" TeX-run-command nil (latex-mode docTeX-mode)))))
     (add-hook 'LaTeX-mode-hook (lambda () (setq TeX-command-default "MkLaTeX")))
+    (add-hook 'LaTeX-mode-hook (lambda () (define-key LaTeX-mode-map (kbd "<double-mouse-1>") 'pdf-sync-forward-search)))
 
   (spacemacs|use-package-add-hook tex
     :post-config
     (setq TeX-auto-save t)
     (setq TeX-parse-self t)
     (setq TeX-show-compilation nil)
-    (define-key LaTeX-mode-map (kbd "<double-mouse-1>") 'pdf-sync-forward-search)
     ;; (setq-default TeX-master nil)
     ;; (add-hook 'reftex-load-hook '(lambda ()
     ;;                                (define-key reftex-mode-map "k" 'reftex-toc-previous)
     ;;                                (define-key reftex-mode-map "j" 'reftex-toc-next)
-    ;;                                ;; k was originally bound to reftex-toc-quit-and-kill, so rebind it 
+    ;;                                ;; k was originally bound to reftex-toc-quit-and-kill, so rebind it
     ;;                                (define-key reftex-mode-map "n" 'reftex-toc-quit-and-kill)
     ;;                                ;; the following keys will be unset
     ;;                                (define-key reftex-mode-map "C-n" nil)

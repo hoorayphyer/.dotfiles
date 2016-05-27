@@ -69,6 +69,23 @@ Each entry is either:
 ;; (defun c++ide/init-ccmode ()
 ;;   (use-package ccmode))
 
+;; the following is copied from c-c++ layer. In particular, I need the code for opening .h file in c++mode
+(defun c++ide/init-cc-mode ()
+  (use-package cc-mode
+    :defer t
+    :init
+    (add-to-list 'auto-mode-alist `("\\.h$" . c++-mode))
+    :config
+    (progn
+      (require 'compile)
+      (c-toggle-auto-newline 1)
+      (spacemacs/set-leader-keys-for-major-mode 'c-mode
+        "ga" 'projectile-find-other-file
+        "gA" 'projectile-find-other-file-other-window)
+      (spacemacs/set-leader-keys-for-major-mode 'c++-mode
+        "ga" 'projectile-find-other-file
+        "gA" 'projectile-find-other-file-other-window))))
+
 (defun c++ide/init-irony ()
   (use-package irony
     :commands irony-mode
