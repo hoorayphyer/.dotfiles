@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: matrix2
+# key: mx2
+# --
+\left(
+\begin{array}{cc}
+  $0  &    \\\\
+    &    
+\end{array}
+\right)

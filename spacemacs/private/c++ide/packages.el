@@ -38,6 +38,7 @@
     cmake-mode
     irony
     flycheck
+    ;; rtags
     )
   "The list of Lisp packages required by the c++ide layer.
 
@@ -69,7 +70,7 @@ Each entry is either:
 ;; (defun c++ide/init-ccmode ()
 ;;   (use-package ccmode))
 
-;; the following is copied from c-c++ layer. In particular, I need the code for opening .h file in c++mode
+;; the following is copied from c-c++ layer.
 (defun c++ide/init-cc-mode ()
   (use-package cc-mode
     :defer t
@@ -80,11 +81,32 @@ Each entry is either:
       (require 'compile)
       (c-toggle-auto-newline 1)
       (spacemacs/set-leader-keys-for-major-mode 'c-mode
-        "ga" 'projectile-find-other-file
-        "gA" 'projectile-find-other-file-other-window)
+        "a" 'projectile-find-other-file
+        "A" 'projectile-find-other-file-other-window
+        "r" 'projectile-recentf
+        "c" 'projectile-compile-project
+        "f" 'helm-projectile-find-file
+        )
       (spacemacs/set-leader-keys-for-major-mode 'c++-mode
-        "ga" 'projectile-find-other-file
-        "gA" 'projectile-find-other-file-other-window))))
+        "a" 'projectile-find-other-file
+        "A" 'projectile-find-other-file-other-window
+        "r" 'projectile-recentf
+        "c" 'projectile-compile-project
+        "f" 'helm-projectile-find-file
+        )
+      ;; define my own compilation rules and bind it to f5
+      (defun hooray/compile ()
+        (interactive)
+        ;; first save all buffers of the project
+        (projectile-save-project-buffers)
+        ;; then run compilation
+        (let ((root-dir (projectile-project-root)))
+          (projectile-run-compilation (concat "cd " root-dir "build && make"))
+          ))
+      ;; bind key
+      (define-key c-mode-map (kbd "<f5>") 'hooray/compile)
+      (define-key c++-mode-map (kbd "<f5>") 'hooray/compile)
+        )))
 
 (defun c++ide/init-irony ()
   (use-package irony
@@ -137,4 +159,7 @@ Each entry is either:
 
 (defun c++ide/post-init-company ()
   (spacemacs|add-company-hook cmake-mode))
+
+;; (defun c++ide/init-rtags ()
+;;   )
 ;;; packages.el ends here

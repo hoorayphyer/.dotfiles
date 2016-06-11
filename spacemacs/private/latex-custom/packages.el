@@ -161,7 +161,8 @@ Each entry is either:
           )))
     (define-key cdlatex-mode-map "\t" 'smart-tab)
     ;; use evil-define-key to rebind some keys in insert state
-    (evil-define-key 'insert LaTeX-mode-map (kbd "M-u") (kbd "^") ) 
+    ;; (evil-define-key 'insert LaTeX-mode-map (kbd "C-i") (kbd "^") )
+    ;; NOTE C-i is globally translated to ^.
     (evil-define-key 'insert LaTeX-mode-map (kbd "M-;")
       '(lambda ()
          (interactive)
@@ -212,6 +213,7 @@ AUTOLABEL
      '(cdlatex-math-modify-alist
        '(
          ( ?b    "\\boldsymbol"            "\\textbf" t   nil nil )
+         ( ?s    "\\mathscr"            nil t   nil nil )
          ))
      )
     ))
