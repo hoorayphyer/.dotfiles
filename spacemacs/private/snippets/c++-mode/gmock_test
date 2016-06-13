@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# name: gmock_test
+# key: gmock
+# --
+#include "gmock/gmock.h"
+$0
+
+using namespace ::testing;
+
+TEST( , ) {}
+
+////////////////////////////////////////////////////////////////////////////////
+///  Main testing function
+////////////////////////////////////////////////////////////////////////////////
+
+int main(int argc, char** argv) {
+  InitGoogleMock(&argc, argv);
+  return RUN_ALL_TESTS();
+}  // ----- end of main -----
