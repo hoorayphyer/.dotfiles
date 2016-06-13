@@ -94,6 +94,13 @@ Each entry is either:
         "c" 'projectile-compile-project
         "f" 'helm-projectile-find-file
         )
+      (spacemacs/set-leader-keys-for-major-mode 'cmake-mode
+        "a" 'projectile-find-other-file
+        "A" 'projectile-find-other-file-other-window
+        "r" 'projectile-recentf
+        "c" 'projectile-compile-project
+        "f" 'helm-projectile-find-file
+        )
       ;; define my own compilation rules and bind it to f5
       (defun hooray/compile ()
         (interactive)
