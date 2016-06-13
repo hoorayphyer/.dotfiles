@@ -102,7 +102,10 @@ Each entry is either:
         ;; then run compilation
         (let ((root-dir (projectile-project-root)))
           (projectile-run-compilation (concat "cd " root-dir "build && make"))
-          ))
+          )
+        ;; switch to the new window. The 1 is the count of windows to skip,
+        ;; starting from the current window
+        (other-window 1))
       ;; bind key
       (define-key c-mode-map (kbd "<f5>") 'hooray/compile)
       (define-key c++-mode-map (kbd "<f5>") 'hooray/compile)
