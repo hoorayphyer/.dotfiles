@@ -94,7 +94,7 @@ Each entry is either:
         ;; "c" 'projectile-compile-project
         ;; "f" 'helm-projectile-find-file
         )
-      ;; define my own compilation rules and bind it to f5
+      ;; define my own compile rules and bind it to f5
       (defun hooray/compile ()
         (interactive)
         ;; first save all buffers of the project
@@ -106,9 +106,25 @@ Each entry is either:
         ;; switch to the new window. The 1 is the count of windows to skip,
         ;; starting from the current window
         (other-window 1))
+
+      ;; define my own test rules and bind it to f6
+      (defun hooray/run_test ()
+        (interactive)
+        ;; first save all buffers of the project
+        (projectile-save-project-buffers)
+        ;; then run compilation
+        (let ((root-dir (projectile-project-root)))
+          (projectile-run-compilation (concat "cd " root-dir "build && make check"))
+          )
+        ;; switch to the new window. The 1 is the count of windows to skip,
+        ;; starting from the current window
+        (other-window 1))
+
       ;; bind key
       (define-key c-mode-map (kbd "<f5>") 'hooray/compile)
       (define-key c++-mode-map (kbd "<f5>") 'hooray/compile)
+      (define-key c-mode-map (kbd "<f6>") 'hooray/run_test)
+      (define-key c++-mode-map (kbd "<f6>") 'hooray/run_test)
         )))
 
 (defun c++ide/init-irony ()
