@@ -204,6 +204,8 @@ AUTOLABEL
           "\\int_{?}^{}"  cdlatex-position-cursor nil nil t)
          ("nn"        "nonumber followed by a new item"
           "\\nonumber" cdlatex-item nil t t)
+         ("lim"       "Insert \\lim\\limits_{}"
+          "\\lim\\limits_{?}"  cdlatex-position-cursor nil nil t)
          ))
      '(cdlatex-math-symbol-alist
        '(

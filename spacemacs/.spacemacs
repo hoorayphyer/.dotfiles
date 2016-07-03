@@ -291,6 +291,17 @@ you should place you code here."
       (ansi-color-apply-on-region (point-min) (point-max))))
   (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
+  ;; ;; (taken and modified from EmacsWiki) split compilation buffer horizontally
+  ;; (defun my-compilation-hook ()
+  ;;   "Make sure that the compile window is splitting vertically"
+  ;;   (progn
+  ;;     (if (not (get-buffer-window "*compilation*"))
+  ;;         (progn
+  ;;           (split-window-horizontally)
+  ;;           )
+  ;;       )))
+  ;; (add-hook 'compilation-mode-hook 'my-compilation-hook)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will

@@ -147,9 +147,11 @@ Each entry is either:
   )
 
 (defun hooray/post-init-yasnippet ()
-  (setq yas-snippet-dirs
-        '("~/.emacs.d/private/snippets")
-        )
+  ;; prepend my custom snippets directory using cons. (No longer needed)
+  ;; (setq yas-snippet-dirs
+  ;;       ;; '("~/.emacs.d/private/snippets")
+  ;;       (cons "~/.emacs.d/private/snippets" yas-snippet-dirs)
+  ;;       )
   (yas-global-mode 1);; or M-x yas-reload-all if you've started YASnippet already.
   (setq yas-indent-line 'fixed)
   ;;(setq yas-also-auto-indent-first-line t)
@@ -162,6 +164,11 @@ Each entry is either:
   (define-key yas-keymap [(control tab)] 'yas-next-field)
   (define-key yas-keymap (kbd "C-g") 'abort-company-or-yas)
   ;; ;; end of conflict solver
+
+  ;; put .yas-skip in yas-installed-snippets-dir/latex-mode to exclude loading this file
+  (let ((file (concat yas-installed-snippets-dir "/latex-mode" "/.yas-skip")))
+    (when (not (file-exists-p file))
+      (write-region "" nil file)))
   )
 
 (defun hooray/post-init-org ()
@@ -189,7 +196,10 @@ Each entry is either:
           ("t" "task" entry (file+headline "~/org/capture.org" "Tasks")
            "** TODO %? %(org-set-tags) \n %(spaces-string 1) %t")
           ("q" "questions" entry (file+headline "~/org/capture.org" "Questions")
-           "** TODO %? %(org-set-tags) \n %(spaces-string 1) %t")))
+           "** TODO %? %(org-set-tags) \n %(spaces-string 1) %t")
+          ("c" "c++ template" entry (file+headline "~/org/capture.org" "C++ Template")
+           "** %? %(org-set-tags) \n %(spaces-string 1) %u")
+          ))
   )
 
 ;; (defun hooray/init-dired ()
