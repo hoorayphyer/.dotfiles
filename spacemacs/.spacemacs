@@ -302,6 +302,10 @@ you should place you code here."
   ;;       )))
   ;; (add-hook 'compilation-mode-hook 'my-compilation-hook)
 
+  ;; globally disable electric-pair-mode. Use smartparens-mode instead
+  (electric-pair-mode -1)
+  (smartparens-global-mode 1)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -314,6 +318,7 @@ you should place you code here."
  '(cdlatex-math-symbol-prefix 59)
  '(electric-pair-mode t)
  '(irony-additional-clang-options (quote ("-std=c++11")))
+ '(org-agenda-files nil)
  '(paradox-github-token t)
  '(split-width-threshold 80))
 (custom-set-faces

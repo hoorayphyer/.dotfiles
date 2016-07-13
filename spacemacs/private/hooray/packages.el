@@ -175,7 +175,7 @@ Each entry is either:
   ;;Enable BaBel ob_babel_functions for some languages
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((C . t) (java . t)))
+   '((C . t) (java . t) (python . t)))
 
   (require 'ob-C)
   (require 'ob-java)
