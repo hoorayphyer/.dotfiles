@@ -304,7 +304,8 @@ you should place you code here."
 
   ;; globally disable electric-pair-mode. Use smartparens-mode instead
   (electric-pair-mode -1)
-  (smartparens-global-mode 1)
+  ;; (smartparens-global-mode 1)
+  (spacemacs/toggle-smartparens-globally-on)
 
   )
 

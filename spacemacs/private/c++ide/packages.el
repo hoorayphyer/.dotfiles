@@ -38,7 +38,7 @@
     cmake-mode
     irony
     flycheck
-    ;; rtags
+    rtags
     )
   "The list of Lisp packages required by the c++ide layer.
 
@@ -101,11 +101,19 @@ Each entry is either:
         (projectile-save-project-buffers)
         ;; then run compilation
         (let ((root-dir (projectile-project-root)))
+          ;; (if (functionp (concat "cd " root-dir "build && make") )
+          ;;     (message "true")
+          ;;   (message "false")
           (projectile-run-compilation (concat "cd " root-dir "build && make"))
           )
         ;; switch to the new window. The 1 is the count of windows to skip,
         ;; starting from the current window
-        (other-window 1))
+        ;; (other-window 1)
+        ;; (switch-to-buffer "*compilation*")
+
+        ;; switch to the compilation window just created
+        (select-window (get-buffer-window "*compilation*") )
+        )
 
       ;; define my own test rules and bind it to f6
       (defun hooray/run_test ()
@@ -179,6 +187,14 @@ Each entry is either:
 (defun c++ide/post-init-company ()
   (spacemacs|add-company-hook cmake-mode))
 
-;; (defun c++ide/init-rtags ()
-;;   )
+(defun c++ide/init-rtags ()
+  (use-package rtags
+    :init
+    (add-hook 'c-mode-common-hook 'rtags-start-process-unless-running)
+    (add-hook 'c++-mode-common-hook 'rtags-start-process-unless-running)
+    (add-hook 'c-mode-common-hook 'rtags-enable-standard-keybindings)
+    (add-hook 'c++-mode-common-hook 'rtags-enable-standard-keybindings)
+
+    )
+  )
 ;;; packages.el ends here

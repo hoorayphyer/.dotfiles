@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: unit vector
+# key: uv
+# --
+\hat{\boldsymbol{$1}}$0

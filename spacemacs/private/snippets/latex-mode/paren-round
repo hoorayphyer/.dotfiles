@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: paren-round
+# key: (
+# --
+\left( $0 \right

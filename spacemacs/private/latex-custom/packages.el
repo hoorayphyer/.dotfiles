@@ -211,6 +211,7 @@ AUTOLABEL
        '(
          ( ?F  ("\\Phi"                 ))
          ( ?n  ("\\nu"             "\\nabla"                "\\ln"))
+         ( ?x  ("\\chi"             "\\times"                nil))
          ))
      '(cdlatex-math-modify-alist
        '(
