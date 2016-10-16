@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: test_exit
+# key: te
+# --
+sys.exit("Test Exit")

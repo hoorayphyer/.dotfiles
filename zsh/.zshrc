@@ -84,6 +84,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias visit="/opt/visit/bin/visit"
 alias xo="xdg-open"
+alias xmm="xmodmap ~/.Xmodmap"
 
 # redefine this function usded in ~/.oh-my-zsh/themes/agnoster.zsh-theme,
 # to hide the machine name, which is the absence of @%m after $USER

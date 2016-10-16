@@ -92,6 +92,9 @@ Each entry is either:
     :defer t ;; the evil package will load evil-ex, so it's deferred till then
     :config
     (evil-ex-define-cmd "wq" 'hooray/evil-write-and-quit-buffer)
+    ;; TODO make :q do the following: kill this buffer. If there are multiple
+    ;; windows, kill the window associated with this buffer as well.
+    (evil-ex-define-cmd "q" 'kill-this-buffer)
     )
   )
 
