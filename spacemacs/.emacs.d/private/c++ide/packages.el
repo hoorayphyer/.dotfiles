@@ -188,13 +188,26 @@ Each entry is either:
   (spacemacs|add-company-hook cmake-mode))
 
 (defun c++ide/init-rtags ()
+  ;; the following is inspired by spacemacs/set-leader-keys-for-major-mode. It
+  ;; is a fancier way to do the following: (rtags-enable-standard-keybindings
+  ;; spacemacs-c++-mode-map "r" ) (rtags-enable-standard-keybindings
+  ;; spacemacs-c-mode-map "r" ) Basically the function loops over all strings of
+  ;; input modes and calls the rtags keybindings function on it
+  (defun hooray/set-rtags-prefix-in-spacemacs ( mode &rest other-modes )
+    (while mode
+      (let* ((map (intern (format "spacemacs-%s-map" mode))))
+        (when (spacemacs//init-leader-mode-map mode map)
+          (rtags-enable-standard-keybindings (symbol-value map) "r" )
+          (setq mode (pop other-modes))))))
+
   (use-package rtags
     :init
     (add-hook 'c-mode-common-hook 'rtags-start-process-unless-running)
     (add-hook 'c++-mode-common-hook 'rtags-start-process-unless-running)
     (add-hook 'c-mode-common-hook 'rtags-enable-standard-keybindings)
     (add-hook 'c++-mode-common-hook 'rtags-enable-standard-keybindings)
-
+    :config
+    (hooray/set-rtags-prefix-in-spacemacs "c++-mode" "c-mode")
     )
   )
 ;;; packages.el ends here

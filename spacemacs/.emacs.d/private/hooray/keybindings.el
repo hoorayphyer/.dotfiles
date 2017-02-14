@@ -11,5 +11,5 @@
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
 ;; translate C-i to ^, which will be useful in latex. ( Originally C-i is same as tab )
-(keyboard-translate ?\C-i ?^ )
+;; (keyboard-translate ?\C-i ?^ )
 
