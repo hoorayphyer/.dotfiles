@@ -1,0 +1,22 @@
+#!/bin/zsh
+cur_dir=$(pwd)
+echo $cur_dir
+function CreateLink {
+	ln -sT ${cur_dir}/.emacs.d/private/$1 $HOME/.emacs.d/private/$1
+}
+
+# .spacemacs
+ln -s ${cur_dir}/.spacemacs $HOME/.spacemacs
+
+# packages
+CreateLink hooray
+CreateLink c++ide
+CreateLink latex-custom
+CreateLink cdlatex
+
+# snippets
+# CreateLink snippets/cmake-mode
+# CreateLink snippets/c++-mode
+# CreateLink snippets/latex-mode
+# CreateLink snippets/org-mode
+# CreateLink snippets/python-mode
