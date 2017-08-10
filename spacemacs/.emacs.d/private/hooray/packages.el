@@ -109,12 +109,12 @@ Each entry is either:
   (global-company-mode)
 
   ;; TODO check if these are needed given the existence of auto-completion
-  ;; ;; solve conflict between company and yasnippet
-  (global-set-key (kbd "TAB") 'tab-indent-or-complete)
-  ;; (global-set-key [(control return)] 'company-complete-common)
+  ;; ;; ;; solve conflict between company and yasnippet
+  ;; (global-set-key (kbd "TAB") 'tab-indent-or-complete)
+  ;; ;; (global-set-key [(control return)] 'company-complete-common)
 
-  ;; (define-key company-active-map [tab] 'expand-snippet-or-complete-selection)
-  (define-key company-active-map (kbd "TAB") 'expand-snippet-or-complete-selection)
+  ;; ;; (define-key company-active-map [tab] 'expand-snippet-or-complete-selection)
+  ;; (define-key company-active-map (kbd "TAB") 'expand-snippet-or-complete-selection)
 
   ;; continued in post-init-yasnippet
   )

@@ -1,6 +1,9 @@
 # Path to your oh-my-zsh installation.
   export ZSH=/home/hooray/.oh-my-zsh
 
+# Dumb terminals lack support
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -8,7 +11,7 @@
 ZSH_THEME=agnoster
 
 # Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+CASE_SENSITIVE="false"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
@@ -54,6 +57,7 @@ plugins=(git)
 # User configuration
 
   export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
+  export PATH="/opt/intel/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -85,6 +89,7 @@ source $ZSH/oh-my-zsh.sh
 alias visit="/opt/visit/bin/visit"
 alias xo="xdg-open"
 alias xmm="xmodmap ~/.Xmodmap"
+alias pd="popd"
 
 # redefine this function usded in ~/.oh-my-zsh/themes/agnoster.zsh-theme,
 # to hide the machine name, which is the absence of @%m after $USER
