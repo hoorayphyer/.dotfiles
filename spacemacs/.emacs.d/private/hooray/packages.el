@@ -194,7 +194,7 @@ Each entry is either:
   ;; (setq org-pretty-entities t) ;;TIP: Just want to enable it in org major-mode
   (setq fill-column 80)
   (add-hook 'org-mode-hook 'turn-on-auto-fill)
-  (add-hook 'org-mode-hook 'org-toggle-pretty-entities)
+  (setq org-pretty-entities t)
   ;; set up org capture and agenda
   (setq org-default-notes-file (concat org-directory "/capture.org"))
   (define-key global-map "\C-cc" 'org-capture)
