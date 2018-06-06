@@ -43,6 +43,7 @@ values."
      git
      ;; markdown
      org
+     pdf-tools
      (latex :variables
             latex-enable-auto-fill t
             latex-enable-folding t)
@@ -142,7 +143,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Consolas"
-                               :size 16
+                               :size 24
                                :weight normal
                                :width normal
                                :powerline-scale 1.0)
@@ -160,7 +161,7 @@ values."
    ;; pressing `<leader> m`. Set it to `nil` to disable it. (default ",")
    dotspacemacs-major-mode-leader-key ","
    ;; Major mode leader key accessible in `emacs state' and `insert state'.
-   ;; (default "C-M-m)
+   ;; (default "C-M-m")
    dotspacemacs-major-mode-emacs-leader-key "C-M-m"
    ;; These variables control whether separate commands are bound in the GUI to
    ;; the key pairs C-i, TAB and C-m, RET.
@@ -268,7 +269,17 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers t
+   dotspacemacs-line-numbers '( :relative nil
+                                :enabled-for-modes tex-mode
+                                                   prog-mode
+                                                   org-mode
+                                :disabled-for-modes dired-mode
+                                                    doc-view-mode
+                                                    ;; markdown-mode
+                                                    ;; org-mode
+                                                    pdf-view-mode
+                                                    ;; text-mode
+                                :size-limit-kb 1000)
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -377,6 +388,8 @@ you should place your code here."
 
   (setq deft-directory "~/Documents/Deft")
 
+  ;; make Tramp respect $PATH on remote servers
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -392,7 +405,7 @@ you should place your code here."
  '(org-startup-indented t)
  '(package-selected-packages
    (quote
-    (flycheck-rtags org-category-capture winum fuzzy deft hide-comnt yapfify smeargle rtags pyvenv pytest pyenv-mode py-isort pip-requirements pdf-tools tablist orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download magit-gitflow live-py-mode hy-mode htmlize helm-pydoc helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit with-editor cython-mode company-statistics company-irony-c-headers company-irony irony company-auctex company-anaconda company cmake-mode auto-yasnippet yasnippet auctex-latexmk auctex anaconda-mode pythonic ac-ispell auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme)))
+    (dash-functional org-mime flycheck-rtags org-category-capture winum fuzzy deft hide-comnt yapfify smeargle rtags pyvenv pytest pyenv-mode py-isort pip-requirements pdf-tools tablist orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download magit-gitflow live-py-mode hy-mode htmlize helm-pydoc helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit with-editor cython-mode company-statistics company-irony-c-headers company-irony irony company-auctex company-anaconda company cmake-mode auto-yasnippet yasnippet auctex-latexmk auctex anaconda-mode pythonic ac-ispell auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme)))
  '(split-width-threshold 0))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
