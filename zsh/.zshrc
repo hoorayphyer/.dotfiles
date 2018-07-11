@@ -88,7 +88,6 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias visit="/opt/visit/bin/visit"
 alias xo="xdg-open"
-alias xmm="xmodmap ~/.Xmodmap"
 alias pd="popd"
 
 # redefine this function usded in ~/.oh-my-zsh/themes/agnoster.zsh-theme,

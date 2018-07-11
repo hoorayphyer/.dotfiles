@@ -1,0 +1,31 @@
+!use xmodmap -pke > some-file to back up the current key maps
+!use xmodmap -pm >> some-file to append the modifier keys to the same file. Note the output is not expressions xmodmap can execute, so one needs to comment them out.
+
+!xmodmap:  up to 4 keys per modifier, (keycodes in parentheses):
+
+!shift       Shift_L (0x32),  Shift_R (0x3e)
+!lock        Caps_Lock (0x42)
+!control     Control_L (0x25),  Control_R (0x69)
+!mod1        Alt_L (0x40),  Alt_R (0x6c),  Meta_L (0xcd)
+!mod2        Num_Lock (0x4d)
+!mod3      
+!mod4        Super_L (0x85),  Super_R (0x86),  Super_L (0xce),  Hyper_L (0xcf)
+!mod5        ISO_Level3_Shift (0x5c),  Mode_switch (0xcb)
+
+!seems that one needs to first clear Control and Lock before remapping keys
+clear Control
+clear Lock
+
+! map ESC(9) to Caps_Lock
+!keycode 9 = Caps_Lock NoSymbol Caps_Lock
+! map Caps_Lock(66) to Control_L
+!keycode 66 = Control_L NoSymbol Control_L
+! map Control_L(37) to ESC
+!keycode 37 = Escape NoSymbol Escape
+
+keysym Escape = Caps_Lock
+keysym Caps_Lock = Control_L
+keysym Control_L = Escape
+
+add Control = Control_L Control_R
+add Lock = Caps_Lock

@@ -174,10 +174,11 @@ Each entry is either:
   (define-key yas-keymap (kbd "C-g") 'abort-company-or-yas)
   ;; ;; end of conflict solver
 
-  ;; put .yas-skip in yas-installed-snippets-dir/latex-mode to exclude loading this file
-  (let ((file (concat yas-installed-snippets-dir "/latex-mode" "/.yas-skip")))
-    (when (not (file-exists-p file))
-      (write-region "" nil file)))
+  ;; TODO fix this.
+  ;; ;; put .yas-skip in yas-installed-snippets-dir/latex-mode to exclude loading this file
+  ;; (let ((file (concat yas-installed-snippets-dir "/latex-mode" "/.yas-skip")))
+  ;;   (when (not (file-exists-p file))
+  ;;     (write-region "" nil file)))
   )
 
 (defun hooray/post-init-org ()

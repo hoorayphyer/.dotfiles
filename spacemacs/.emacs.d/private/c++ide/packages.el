@@ -33,10 +33,10 @@
   '(
     cc-mode
     company
-    ;; company-irony
-    ;; company-irony-c-headers
+    company-irony
+    company-irony-c-headers
     cmake-mode
-    ;; irony
+    irony
     flycheck
     rtags
     flycheck-rtags
@@ -136,42 +136,42 @@ Each entry is either:
       (define-key c++-mode-map (kbd "<f6>") 'hooray/run_test)
         )))
 
-;; (defun c++ide/init-irony ()
-;;   (use-package irony
-;;     :commands irony-mode
-;;     :init
-;;     (add-hook 'c++-mode-hook 'irony-mode)
-;;     (add-hook 'c-mode-hook 'irony-mode)
-;;     (add-hook 'objc-mode-hook 'irony-mode)
-;;     ;; replace the `completion-at-point' and `complete-symbol' bindings in
-;;     ;; irony-mode's buffers by irony-mode's function
-;;     (defun my-irony-mode-hook ()
-;;       (define-key irony-mode-map [remap completion-at-point]
-;;         'irony-completion-at-point-async)
-;;       (define-key irony-mode-map [remap complete-symbol]
-;;         'irony-completion-at-point-async))
-;;     (add-hook 'irony-mode-hook 'my-irony-mode-hook)
-;;     (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-;;     ;; use c++11 for flagging clang. NOTE this has to be done here. Using
-;;     ;; customize turns out to be useless.
-;;     (custom-set-variables
-;;      '(irony-additional-clang-options (quote ("-std=c++11")))
-;;      )
+(defun c++ide/init-irony ()
+  (use-package irony
+    :commands irony-mode
+    :init
+    (add-hook 'c++-mode-hook 'irony-mode)
+    (add-hook 'c-mode-hook 'irony-mode)
+    (add-hook 'objc-mode-hook 'irony-mode)
+    ;; replace the `completion-at-point' and `complete-symbol' bindings in
+    ;; irony-mode's buffers by irony-mode's function
+    (defun my-irony-mode-hook ()
+      (define-key irony-mode-map [remap completion-at-point]
+        'irony-completion-at-point-async)
+      (define-key irony-mode-map [remap complete-symbol]
+        'irony-completion-at-point-async))
+    (add-hook 'irony-mode-hook 'my-irony-mode-hook)
+    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+    ;; use c++11 for flagging clang. NOTE this has to be done here. Using
+    ;; customize turns out to be useless.
+    (custom-set-variables
+     '(irony-additional-clang-options (quote ("-std=c++11")))
+     )
 
-;;     ))
+    ))
 
-;; (defun c++ide/init-company-irony-c-headers ()
-;;   (use-package company-irony-c-headers
-;;     :commands company-irony-c-headers
-;;     :init
-;;     ;; Load with `irony-mode` as a grouped backend
-;;     (add-to-list 'company-backends '(company-irony-c-headers company-irony))))
+(defun c++ide/init-company-irony-c-headers ()
+  (use-package company-irony-c-headers
+    :commands company-irony-c-headers
+    :init
+    ;; Load with `irony-mode` as a grouped backend
+    (add-to-list 'company-backends '(company-irony-c-headers company-irony))))
 
-;; (defun c++ide/init-company-irony ()
-;;   (use-package company-irony
-;;     :commands company-irony
-;;     :init
-;;     (add-to-list 'company-backends 'company-irony)))
+(defun c++ide/init-company-irony ()
+  (use-package company-irony
+    :commands company-irony
+    :init
+    (add-to-list 'company-backends 'company-irony)))
 
 (defun c++ide/post-init-flycheck ()
   (add-hook 'c++-mode-hook 'flycheck-mode)
@@ -207,7 +207,7 @@ Each entry is either:
     (add-hook 'c++-mode-common-hook 'rtags-start-process-unless-running)
     (add-hook 'c-mode-common-hook 'rtags-enable-standard-keybindings)
     (add-hook 'c++-mode-common-hook 'rtags-enable-standard-keybindings)
-    (add-to-list 'company-backends 'company-rtags)
+    ;; (add-to-list 'company-backends 'company-rtags)
     :config
     (hooray/set-rtags-prefix-in-spacemacs "c++-mode" "c-mode")
     (setq rtags-autostart-diagnostics t)
