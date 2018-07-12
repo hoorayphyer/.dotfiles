@@ -142,8 +142,8 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Consolas"
-                               :size 24
+   dotspacemacs-default-font `("Consolas"
+                               :size ,(if (< (nth 3 (frame-monitor-geometry) ) 1200) 19 25) ;; Note the backtick and comma. :size is called a keyword, which is a constant
                                :weight normal
                                :width normal
                                :powerline-scale 1.0)
@@ -390,6 +390,7 @@ you should place your code here."
 
   ;; make Tramp respect $PATH on remote servers
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
