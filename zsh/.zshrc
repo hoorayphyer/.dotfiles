@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/hooray/.oh-my-zsh
+  export ZSH=$HOME/.oh-my-zsh
 
 # Dumb terminals lack support
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
