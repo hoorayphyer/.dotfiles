@@ -32,8 +32,7 @@
 (defconst latex-custom-packages
   '(
     auctex
-    (cdlatex :location local)
-    ;; pdf-tools ;; now pdf-tools becomes a separate layer in .spacemacs
+    (cdlatex :location elpa)
     )
   "The list of Lisp packages required by the latex-custom layer.
 
@@ -220,9 +219,5 @@ AUTOLABEL
          ))
      )
     ))
-
-;; (defun latex-custom/init-pdf-tools ()
-;;   (pdf-tools-install)
-;;   )
 
 ;;; packages.el ends here

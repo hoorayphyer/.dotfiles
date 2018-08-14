@@ -76,32 +76,12 @@ Each entry is either:
   (define-key evil-normal-state-map "q" 'undo-tree-redo)
   ;; set up insert-state
   (define-key evil-insert-state-map "\C-l" [right]) ;; somehow evil-forward-char doesn't go beyond the ) in the end of line.
-  ;; TODO the following no longer works.
-  ;; ;; rebind :wq to just save and kill current buffer
-  ;; ;; Note on what is going on here
-  ;; ;; 1. originally tried (evil-write) (kill-this-buffer) but it doesn't work. evil-write takes some arguments.
-  ;; ;; 2. the following version copies the evil-save-and-close in evil-command.el, which makes use of the macro
-  ;; ;;    evil-define-command, defined in evil-common.
-  ;; ;; 3, the only difference is kill-this-buffer instead of the original evil-quit.
-  ;; (use-package evil-common
-  ;;   :defer t
-  ;;   :config
-  ;;   (evil-define-command hooray/evil-write-and-quit-buffer ( file &optional bang )
-  ;;     "Saves the current buffer and closes the current buffer."
-  ;;     :repeat nil
-  ;;     (interactive "<f><!>")
-  ;;     (evil-write nil nil nil file bang)
-  ;;     (kill-this-buffer)
-  ;;     ))
 
-  ;; (use-package evil-ex
-  ;;   :defer t ;; the evil package will load evil-ex, so it's deferred till then
-  ;;   :config
-  ;;   (evil-ex-define-cmd "wq" 'hooray/evil-write-and-quit-buffer)
-  ;;   ;; TODO make :q do the following: kill this buffer. If there are multiple
-  ;;   ;; windows, kill the window associated with this buffer as well.
-  ;;   (evil-ex-define-cmd "q" 'kill-this-buffer)
-  ;;   )
+  ;; set up evil-commandline keybindings
+  (eval-after-load 'evil-ex
+    '(evil-ex-define-cmd "q[uit]" 'kill-this-buffer))
+
+
   )
 
 (defun hooray/post-init-company ()
