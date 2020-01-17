@@ -12,11 +12,11 @@ ln -s ${cur_dir}/.spacemacs $HOME/.spacemacs
 CreateLink hooray
 CreateLink c++ide
 CreateLink latex-custom
-CreateLink cdlatex
+# CreateLink cdlatex
 
 # snippets
-CreateLink snippets/cmake-mode
-CreateLink snippets/c++-mode
-CreateLink snippets/latex-mode
-CreateLink snippets/org-mode
-CreateLink snippets/python-mode
+# CreateLink snippets/cmake-mode
+# CreateLink snippets/c++-mode
+# CreateLink snippets/latex-mode
+# CreateLink snippets/org-mode
+# CreateLink snippets/python-mode

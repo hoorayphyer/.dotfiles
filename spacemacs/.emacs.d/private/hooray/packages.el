@@ -66,21 +66,33 @@ Each entry is either:
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
 
 (defun hooray/post-init-evil ()
-  ;; set up motion-state
-  ;; use C-S-e to scroll up and  ?? unbind the original C-y for this job
-  (define-key evil-motion-state-map (kbd "C-S-e") 'evil-scroll-line-up)
-  ;; (unbind-key (kbd "C-y") evil-motion-state-map)
-  ;; (unbind-key (kbd "C-y"))
-  ;; set up normal-state
-  (define-key evil-normal-state-map "\C-k" 'evil-end-of-line)
+  (define-key evil-motion-state-map "\C-j" (lambda () (interactive) (evil-scroll-down 0)))
+  (define-key evil-motion-state-map "\C-k" (lambda () (interactive) (evil-scroll-up 0) ))
+
+  (define-key evil-motion-state-map "f" 'evil-avy-goto-char-in-line)
+  (define-key evil-motion-state-map "s" 'evil-avy-goto-symbol-1)
+  (define-key evil-motion-state-map "S" 'evil-avy-goto-char-2)
+  (define-key evil-motion-state-map "L" 'evil-avy-goto-line)
+
+  (define-key evil-normal-state-map "r" 'evil-replace-state)
   (define-key evil-normal-state-map "q" 'undo-tree-redo)
-  ;; set up insert-state
-  (define-key evil-insert-state-map "\C-l" [right]) ;; somehow evil-forward-char doesn't go beyond the ) in the end of line.
+
+  ;;  ;; navigation
+  (define-key evil-normal-state-map "f" 'evil-avy-goto-char-in-line)
+  (define-key evil-normal-state-map "s" 'evil-avy-goto-symbol-1)
+  (define-key evil-normal-state-map "S" 'evil-avy-goto-char-2)
+  (define-key evil-normal-state-map "L" 'evil-avy-goto-line)
+
 
   ;; set up evil-commandline keybindings
   (eval-after-load 'evil-ex
     '(evil-ex-define-cmd "q[uit]" 'kill-this-buffer))
-
+  (defun evil-ex-versatile-xit (&rest r)
+    (interactive)
+    "prevent emacs from trying to close the last window of a frame; kill buffer if the buffer is ReadOnly e.g. *Message*; allow xit without saving"
+    (if (= (count-windows) 1) (progn (evil-save r t) (kill-this-buffer)) (evil-save-modified-and-close r) ))
+  (eval-after-load 'evil-ex
+    '(evil-ex-define-cmd "x[it]" 'evil-ex-versatile-xit))
 
   )
 
@@ -100,30 +112,9 @@ Each entry is either:
   )
 
 (defun hooray/post-init-helm ()
-  (use-package helm-config
-    :config
-    (helm-mode 1)
-    )
-  ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
-  ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
-  ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-  (global-set-key (kbd "C-x C-f") 'helm-find-files)
-  (global-set-key (kbd "C-c h") 'helm-command-prefix)
-  (global-unset-key (kbd "C-x c"))
-
-  (global-set-key (kbd "C-x b") 'helm-mini)
-  (global-set-key (kbd "M-y") 'helm-show-kill-ring)
-  (global-set-key (kbd "M-x") 'helm-M-x)
   (setq helm-M-x-fuzzy-match t
         helm-buffers-fuzzy-matching t
         helm-recentf-fuzzy-match t)
-
-  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
-  (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
-  (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
-
-  (when (executable-find "curl")
-    (setq helm-google-suggest-use-curl-p t))
 
   (setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
         helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
@@ -141,7 +132,7 @@ Each entry is either:
   ;;       ;; '("~/.emacs.d/private/snippets")
   ;;       (cons "~/.emacs.d/private/snippets" yas-snippet-dirs)
   ;;       )
-  (yas-global-mode 1);; or M-x yas-reload-all if you've started YASnippet already.
+  (yas-global-mode nil);; or M-x yas-reload-all if you've started YASnippet already.
   (setq yas-indent-line 'fixed)
   ;;(setq yas-also-auto-indent-first-line t)
   ;; continued from post-init-company
@@ -165,10 +156,9 @@ Each entry is either:
   ;;Enable BaBel ob_babel_functions for some languages
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((C . t) (java . t) (python . t)))
+   '((C . t) (python . t)))
 
   (require 'ob-C)
-  (require 'ob-java)
   ;; disable line-splitting of M-RET
   (setq org-M-RET-may-split-line nil)
   ;; auto display UTF-8 of greek letters and the like.
@@ -178,18 +168,18 @@ Each entry is either:
   (setq org-pretty-entities t)
   ;; set up org capture and agenda
   (setq org-default-notes-file (concat org-directory "/capture.org"))
-  (define-key global-map "\C-cc" 'org-capture)
-  (define-key global-map "\C-ca" 'org-agenda)
-  (setq org-capture-templates
-        '(("k" "knowledge" entry (file+headline "~/org/capture.org" "Knowledge")
-           "** %? %(org-set-tags) \n %(spaces-string 1) %u") ;%(spaces-string 1) is for alignment
-          ("t" "task" entry (file+headline "~/org/capture.org" "Tasks")
-           "** TODO %? %(org-set-tags) \n %(spaces-string 1) %t")
-          ("q" "questions" entry (file+headline "~/org/capture.org" "Questions")
-           "** TODO %? %(org-set-tags) \n %(spaces-string 1) %t")
-          ("c" "c++ template" entry (file+headline "~/org/capture.org" "C++ Template")
-           "** %? %(org-set-tags) \n %(spaces-string 1) %u")
-          ))
+  ;; (define-key global-map "\C-cc" 'org-capture)
+  ;; (define-key global-map "\C-ca" 'org-agenda)
+  ;; (setq org-capture-templates
+  ;;       '(("k" "knowledge" entry (file+headline "~/org/capture.org" "Knowledge")
+  ;;          "** %? %(org-set-tags) \n %(spaces-string 1) %u") ;%(spaces-string 1) is for alignment
+  ;;         ("t" "task" entry (file+headline "~/org/capture.org" "Tasks")
+  ;;          "** TODO %? %(org-set-tags) \n %(spaces-string 1) %t")
+  ;;         ("q" "questions" entry (file+headline "~/org/capture.org" "Questions")
+  ;;          "** TODO %? %(org-set-tags) \n %(spaces-string 1) %t")
+  ;;         ("c" "c++ template" entry (file+headline "~/org/capture.org" "C++ Template")
+  ;;          "** %? %(org-set-tags) \n %(spaces-string 1) %u")
+  ;;         ))
   )
 
 ;; (defun hooray/init-dired ()

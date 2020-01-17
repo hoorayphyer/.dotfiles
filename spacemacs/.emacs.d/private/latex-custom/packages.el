@@ -32,7 +32,7 @@
 (defconst latex-custom-packages
   '(
     auctex
-    (cdlatex :location elpa)
+    (cdlatex :location local)
     )
   "The list of Lisp packages required by the latex-custom layer.
 
@@ -109,9 +109,13 @@ Each entry is either:
 
     (add-hook 'LaTeX-mode-hook 'setup-synctex-latex)
     ;; the latexmk option -pvc makes latexmk automatically update pdf whenever changes are made to source file.
-    (add-hook 'LaTeX-mode-hook (lambda () (add-to-list 'TeX-command-list '("MkLaTeX" "latexmk -pdf -pdflatex='pdflatex -file-line-error -synctex=1' -pvc %t" TeX-run-command nil (latex-mode docTeX-mode)))))
+    (add-hook 'LaTeX-mode-hook (lambda () (add-to-list 'TeX-command-list '("MkLaTeX" "latexmk -pdf -pdflatex='pdflatex -interaction=scrollmode -file-line-error -halt-on-error -synctex=1' -pvc %t" TeX-run-command nil (latex-mode docTeX-mode)))))
     (add-hook 'LaTeX-mode-hook (lambda () (setq TeX-command-default "MkLaTeX")))
     (add-hook 'LaTeX-mode-hook (lambda () (define-key LaTeX-mode-map (kbd "<double-mouse-1>") 'pdf-sync-forward-search)))
+    (add-hook 'LaTeX-mode-hook (lambda () (setq LaTeX-math-abbrev-prefix nil))) ;; was `, but now used it for cdlatex math-modify
+
+    ;; advice from online repo
+    (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
 
   (spacemacs|use-package-add-hook tex
     :post-config
@@ -131,22 +135,13 @@ Each entry is either:
     )
   )
 
-
 (defun latex-custom/init-cdlatex ()
   (use-package cdlatex
-    :load-path "private/cdlatex"
+    :load-path "~/Projects/cdlatex"
     :commands turn-on-cdlatex
     :init
     (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)   ; with AUCTeX LaTeX mode
     (add-hook 'latex-mode-hook 'turn-on-cdlatex)   ; with Emacs latex mode
-    ;; set the defcustom variables. Note that these two variables must be set
-    ;; before package loading, in which, for example, cdlatex-math-symbol-prefix
-    ;; will be used to bind key to function cdlatex-math-symbol. Setting this
-    ;; variable after this step is useless.
-    (custom-set-variables
-     '(cdlatex-math-symbol-prefix ?\;)
-     ;; '(cdlatex-math-modify-prefix ?')
-     )
     :config
     ;; first try expanding yasnippet, then cdlatex-tab
     ;; FIXME when yasnippet is expanded, the tab is bound to yas-next-field-or-maybe-expand
@@ -159,13 +154,7 @@ Each entry is either:
             (cdlatex-tab)
           )))
     (define-key cdlatex-mode-map "\t" 'smart-tab)
-    ;; use evil-define-key to rebind some keys in insert state
-    ;; (evil-define-key 'insert LaTeX-mode-map (kbd "C-i") (kbd "^") )
-    ;; NOTE C-i is globally translated to ^.
-    (evil-define-key 'insert LaTeX-mode-map (kbd "M-;")
-      '(lambda ()
-         (interactive)
-         (insert ?\;)) )
+
     ;; customize some symbols
     (custom-set-variables
      '(cdlatex-paired-parens "$([{") ;; add ( in auto pairing
@@ -208,9 +197,7 @@ AUTOLABEL
          ))
      '(cdlatex-math-symbol-alist
        '(
-         ( ?F  ("\\Phi"                 ))
-         ( ?n  ("\\nu"             "\\nabla"                "\\ln"))
-         ( ?x  ("\\chi"             "\\times"                nil))
+         ( ?n  ("\\nu "             "\\nabla "                "\\ln "))
          ))
      '(cdlatex-math-modify-alist
        '(

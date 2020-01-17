@@ -93,7 +93,10 @@ Each entry is either:
         "A" 'projectile-find-other-file-other-window
         ;; "r" 'projectile-recentf
         ;; "c" 'projectile-compile-project
-        ;; "f" 'helm-projectile-find-file
+        "f" 'helm-projectile-find-file
+        "b" 'helm-projectile-switch-to-buffer
+        "s" 'projectile-save-project-buffers
+        "I" 'projectile-invalidate-cache
         )
       ;; define my own compile rules and bind it to f5
       (defun hooray/compile ()
@@ -183,7 +186,15 @@ Each entry is either:
 (defun c++ide/init-cmake-mode ()
   (use-package cmake-mode
     :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))
-    :init (push 'company-cmake company-backends-cmake-mode)))
+    :init (push 'company-cmake company-backends-cmake-mode)
+    :config
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'cmake-mode
+        "f" 'helm-projectile-find-file
+        "b" 'helm-projectile-switch-to-buffer
+        "s" 'projectile-save-project-buffers
+        "I" 'projectile-invalidate-cache
+        ))))
 
 (defun c++ide/post-init-company ()
   (spacemacs|add-company-hook cmake-mode))
