@@ -1,3 +1,5 @@
+/* in Customize, unclick the titlebar and bookmark bar(from a dropdown list) in the bottom
+/* first go to about:config, set toolkit.legacyUserProfileCustomizations.stylesheets to True
 /* hides the native tabs */
 #TabsToolbar {
   visibility: collapse;
